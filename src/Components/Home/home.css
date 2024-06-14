@@ -1,0 +1,24 @@
+.bookCard{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.viewAll{
+    text-align: right;
+    margin-right:2%; 
+}
+
+h2{
+    display: inline;
+}
+
+.container{
+    margin-left:7%;
+}
+
+.header{
+    margin-left:7%;
+    margin-top: 1%;
+}

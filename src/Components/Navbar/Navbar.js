@@ -1,5 +1,6 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import './navbar.css'
 
 export default function Navbar() {
   return (
@@ -37,12 +38,12 @@ export default function Navbar() {
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <NavLink className="nav-link" to="/signup">
-                Signup
+              <button type="button" class="btn btn-success">Sign up</button>
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="/signin">
-                Signin
+              <button type="button" class="btn btn-success">Sign in</button>
               </NavLink>
             </li>
           </ul>

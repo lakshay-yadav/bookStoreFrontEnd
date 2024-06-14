@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./signup.css";
 import { NavLink } from "react-router-dom";
 import Navbar from "../Navbar/Navbar.js";
+import {API} from '../../backend.js';
 
 export default function Signup() {
 
@@ -18,16 +19,17 @@ export default function Signup() {
     e.preventDefault()
     console.log("Button pressed")
 
-    const response = await fetch("https://localhost:8000/signup",{
+    const response = await fetch(`${API}/signup`,{
       method:"POST",
       headers:{
-        Accept: "application/json",
+        "Accept": "application/json",
         "content-type": "application/json"
       },
       body: JSON.stringify(userData)
     });
 
     const data = await response.json()
+    console.log(data)
   }
 
   const changeHandler = (e,name)=>{
