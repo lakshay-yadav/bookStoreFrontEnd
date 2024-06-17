@@ -3,10 +3,12 @@ import "./signup.css";
 import { NavLink } from "react-router-dom";
 import Navbar from "../Navbar/Navbar.js";
 import {API} from '../../backend.js';
+import { Navigate } from "react-router-dom";
 
 export default function Signup() {
 
   const [passwordEqual,setPasswordEqual] = useState(false)
+  const [signupDone,setSignupDone] = useState(false)
 
   const [userData,setUserData] = useState({
     name:"",
@@ -19,7 +21,7 @@ export default function Signup() {
     e.preventDefault()
     console.log("Sign up pressed")
     console.log(userData)
-    const response = await fetch(`${API}/signup/`,{
+    const response = await fetch(`http://localhost:8000/api/signup`,{
       method:"POST",
       headers:{
         Accept: "application/json",
@@ -28,8 +30,17 @@ export default function Signup() {
       body: JSON.stringify(userData)
     });
 
-    // const data = await response.json()
-    console.log(response)
+    const data = await response.json()
+    console.log(data)
+
+    if(data.status === "OK"){
+      alert("Sign up Completed, Please Login");
+      setSignupDone(true)
+    }
+    if(data.status === "EXISTS"){
+      alert("Account Already exists, Please Login");
+      setSignupDone(true)
+    }
   }
 
   const changeHandler = (e,name)=>{
@@ -39,34 +50,37 @@ export default function Signup() {
     setUserData(data);
 
     console.log(userData)
-    checkPasswordEqual();
+    // checkPasswordEqual();
   }
 
-  const checkPasswordEqual = ()=>{
-    if(userData.password === userData.confirmPassword ){
-      console.log("Inside if")
-      if(userData.confirmPassword!==""){
-        console.log("Inside nested if ");
-      setPasswordEqual(true)
-      }
-      else{
-        setPasswordEqual(false)
-      }
-    }
-    else{
-      setPasswordEqual(false)
+  // const checkPasswordEqual = ()=>{
+  //   if(userData.password === userData.confirmPassword ){
+  //     console.log("Inside if")
+  //     if(userData.confirmPassword!==""){
+  //       console.log("Inside nested if ");
+  //     setPasswordEqual(true)
+  //     }
+  //     else{
+  //       setPasswordEqual(false)
+  //     }
+  //   }
+  //   else{
+  //     setPasswordEqual(false)
+  //   }
+  // }
+
+  const redirect = ()=>{
+    if(signupDone){
+      return <Navigate replace to ='/signin'/>
     }
   }
 
   return (
     <React.Fragment>
       <Navbar />
-      <section
+      <div
+      style={{ backgroundColor: "#9A616D" }}
         className="vh-100 bg-image"
-        style={{
-          backgroundImage:
-            'url("https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp")',
-        }}
       >
         <div className="mask d-flex align-items-center h-100 gradient-custom-3">
           <div className="container h-100">
@@ -127,7 +141,7 @@ export default function Signup() {
                       </div>
                       <div className="d-flex justify-content-center">
                         <button
-                          disabled = {!passwordEqual}
+                          // disabled = {!passwordEqual}
                           onClick={(e)=>{submitHandler(e)}}
                           type="button"
                           data-mdb-button-init=""
@@ -150,7 +164,8 @@ export default function Signup() {
             </div>
           </div>
         </div>
-      </section>
+      </div>
+      {redirect()}
     </React.Fragment>
   );
 }

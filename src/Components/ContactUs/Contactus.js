@@ -20,7 +20,7 @@ export default function ContactUs() {
 
     const submitHandler = async (e)=>{
         e.preventDefault()
-        const response = await fetch('http:localhost:8000/api/contactus',{
+        const response = await fetch('http://localhost:8000/api/contactus',{
             method:"POST",
             headers:{
                 Accept:"application/json",
@@ -38,6 +38,7 @@ export default function ContactUs() {
 
     const performRedirect = ()=>{
       if(info.status==="OK"){
+        alert("Query Submitted")
         return <Navigate replace to='/'/>
       }
     }
@@ -46,7 +47,7 @@ export default function ContactUs() {
   return (
     <React.Fragment>
       <Navbar/>
-      <div className="body">
+      <div className="body" style={{ backgroundColor: "#9A616D" }}>
       <div className="container">
         <div className="content">
           <div className="left-side">

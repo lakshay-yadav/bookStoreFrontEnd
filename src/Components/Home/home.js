@@ -29,6 +29,7 @@ export default function Home() {
   return (
     <React.Fragment>
       <Navbar></Navbar>
+      <div>
       <div className="header">
           <h2>Popular Books</h2>
         </div>
@@ -41,6 +42,7 @@ export default function Home() {
             }
           })}
         </div>
+      </div>
       </div>
     </React.Fragment>
   );
