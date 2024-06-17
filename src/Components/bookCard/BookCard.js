@@ -36,7 +36,7 @@ export default function BookCard({ bookData }) {
         </h6>
         <p className="card-text">{bookData.description}</p>
         <NavLink to="/:${bookData.name}" className="card-link">
-        <button type="button" class="btn btn-success">More</button>
+        <button type="button" class="btn btn-success">View Details</button>
         </NavLink>
         <NavLink to="/cart" className="card-link">
         <button type="button" class="btn btn-success" onClick={clickHandler}>Add to Cart</button>

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import Navbar from "../Navbar/Navbar";
-import './contactus.css'
+import './contactus.css';
+import { Navigate } from "react-router-dom";
 
 export default function ContactUs() {
+  const [info ,SetInfo] = useState({})
 
     const [query,setQuery] = useState({
         name:"",
@@ -12,13 +14,13 @@ export default function ContactUs() {
 
     const changeHandler = (e,name)=>{
         e.preventDefault()
-        const data = {...query,name:e.target.value}
+        const data = {...query,[name]:e.target.value}
         setQuery(data);
     }
 
     const submitHandler = async (e)=>{
         e.preventDefault()
-        const response = await fetch('https:localhost:8000/contactus',{
+        const response = await fetch('http:localhost:8000/api/contactus',{
             method:"POST",
             headers:{
                 Accept:"application/json",
@@ -30,6 +32,14 @@ export default function ContactUs() {
         )
 
         const data = await response.json()
+        console.log(data)
+        SetInfo(data)
+    }
+
+    const performRedirect = ()=>{
+      if(info.status==="OK"){
+        return <Navigate replace to='/'/>
+      }
     }
 
 
@@ -70,7 +80,7 @@ export default function ContactUs() {
                 <input type="text" onChange={(e)=>{changeHandler(e,"name")}} placeholder="Enter your name" />
               </div>
               <div className="input-box">
-                <input type="text" placeholder="Enter your email" onChange={(e)=>{changeHandler(e,"email")}}/>
+                <input type="email" placeholder="Enter your email" onChange={(e)=>{changeHandler(e,"email")}}/>
               </div>
               <div className="input-box message-box">
                 <input type="text" placeholder="Enter description" onChange={(e)=>{changeHandler(e,"description")}}/>
@@ -83,6 +93,7 @@ export default function ContactUs() {
         </div>
       </div>
       </div>
+      {performRedirect()}
     </React.Fragment>
   );
 }

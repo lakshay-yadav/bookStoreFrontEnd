@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
+import { Navigate } from "react-router-dom";
 
 export default function Signin() {
 
@@ -9,29 +10,50 @@ const [signinInfo,setSigninInfo] = useState({
   password:""
 })
 
+const [isLogin,setIsLogin] = useState(false);
+
 const changeHandler = (e,name)=>{
   e.preventDefault()
-  const data = {...signinInfo,name:e.target.value}
+  const data = {...signinInfo,[name]:e.target.value}
   console.log("changed")
 
   setSigninInfo(data)
 }
 
+
 const submitHandler = async (e)=>{
   e.preventDefault()
-  const response = await fetch('/api/signin',{
-    method:'POST',
+  console.log(signinInfo)
+  const response = await fetch('http://localhost:8000/api/signin',{
+    method:"POST",
     headers:{
       "content-type":"application/json",
       Accept:"application/json"
     },
-    bosy:JSON.stringify(signinInfo)
+    body:JSON.stringify(signinInfo)
   })
   console.log("Clicked")
   const data = await response.json()
 
-  console.log(data)
+  console.log(data.status)
+  if(data.status==="OK"){
+    setIsLogin(true);
+    alert("Succesfully signed in")
+    console.log("Successfully signed in")
+    
+  }
 
+  else{
+    alert("Wrong Username or password")
+    console.log("Error in sign in");
+  }
+
+}
+
+const performRedirect = ()=>{
+  if(isLogin){
+    return <Navigate replace to='/'/>
+  }
 }
 
   return (
@@ -73,13 +95,13 @@ const submitHandler = async (e)=>{
                         >
                           <input
                             type="email"
-                            id="form2Example17"
+                            id="email"
                             className="form-control form-control-lg"
                             onChange={(e)=>{changeHandler(e,"email")}}
                           />
                           <label
                             className="form-label"
-                            htmlFor="form2Example17"
+                            htmlFor="email"
                           >
                             Email address
                           </label>
@@ -90,13 +112,13 @@ const submitHandler = async (e)=>{
                         >
                           <input
                             type="password"
-                            id="form2Example27"
+                            id="password"
                             className="form-control form-control-lg"
                             onChange={(e)=>{changeHandler(e,"password")}}
                           />
                           <label
                             className="form-label"
-                            htmlFor="form2Example27"
+                            htmlFor="password"
                           >
                             Password
                           </label>
@@ -133,6 +155,7 @@ const submitHandler = async (e)=>{
           </div>
         </div>
       </section>
+      {performRedirect()}
     </React.Fragment>
   );
 }

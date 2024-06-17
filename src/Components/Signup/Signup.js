@@ -6,7 +6,7 @@ import {API} from '../../backend.js';
 
 export default function Signup() {
 
-  // const [passwordEqual,setPasswordEqual] = useState(false)
+  const [passwordEqual,setPasswordEqual] = useState(false)
 
   const [userData,setUserData] = useState({
     name:"",
@@ -17,34 +17,45 @@ export default function Signup() {
 
   const submitHandler = async (e)=>{
     e.preventDefault()
-    console.log("Button pressed")
-
-    const response = await fetch(`${API}/signup`,{
+    console.log("Sign up pressed")
+    console.log(userData)
+    const response = await fetch(`${API}/signup/`,{
       method:"POST",
       headers:{
-        "Accept": "application/json",
+        Accept: "application/json",
         "content-type": "application/json"
       },
       body: JSON.stringify(userData)
     });
 
-    const data = await response.json()
-    console.log(data)
+    // const data = await response.json()
+    console.log(response)
   }
 
   const changeHandler = (e,name)=>{
     e.preventDefault()
 
-    const data = {...userData,name:e.target.value}
+    const data = {...userData,[name]:e.target.value}
     setUserData(data);
 
-    // if(name==="confirmpassword"){
-    //   if(userData.password===userData.confirmPassword){
-    //     setPasswordEqual(true)
-    //     console.log(passwordEqual)
-    //   }
-    // }
-    // console.log(userData)
+    console.log(userData)
+    checkPasswordEqual();
+  }
+
+  const checkPasswordEqual = ()=>{
+    if(userData.password === userData.confirmPassword ){
+      console.log("Inside if")
+      if(userData.confirmPassword!==""){
+        console.log("Inside nested if ");
+      setPasswordEqual(true)
+      }
+      else{
+        setPasswordEqual(false)
+      }
+    }
+    else{
+      setPasswordEqual(false)
+    }
   }
 
   return (
@@ -69,7 +80,7 @@ export default function Signup() {
                     <form >
                       <div data-mdb-input-init="" className="form-outline mb-4">
                         <input
-                          onChange={(e)=>{ changeHandler(e,"name")}}
+                          onChange={(e)=>{ changeHandler(e,"name");}}
                           type="text"
                           id="form3Example1cg"
                           className="form-control form-control-lg"
@@ -80,7 +91,7 @@ export default function Signup() {
                       </div>
                       <div data-mdb-input-init="" className="form-outline mb-4">
                         <input
-                          onChange={(e)=>{ changeHandler(e,"email")}}
+                          onChange={(e)=>{ changeHandler(e,"email");}}
                           type="email"
                           id="form3Example3cg"
                           className="form-control form-control-lg"
@@ -91,7 +102,7 @@ export default function Signup() {
                       </div>
                       <div data-mdb-input-init="" className="form-outline mb-4">
                         <input
-                          onChange={(e)=>{ changeHandler(e,"password")}}
+                          onChange={(e)=>{ changeHandler(e,"password");}}
                           type="password"
                           id="form3Example4cg"
                           className="form-control form-control-lg"
@@ -102,7 +113,7 @@ export default function Signup() {
                       </div>
                       <div data-mdb-input-init="" className="form-outline mb-4">
                         <input
-                        onChange={(e)=>{ changeHandler(e,"confirmpassword")}}
+                        onChange={(e)=>{ changeHandler(e,"confirmPassword");}}
                           type="password"
                           id="form3Example4cdg"
                           className="form-control form-control-lg"
@@ -116,7 +127,7 @@ export default function Signup() {
                       </div>
                       <div className="d-flex justify-content-center">
                         <button
-                          // disabled = {!passwordEqual}
+                          disabled = {!passwordEqual}
                           onClick={(e)=>{submitHandler(e)}}
                           type="button"
                           data-mdb-button-init=""

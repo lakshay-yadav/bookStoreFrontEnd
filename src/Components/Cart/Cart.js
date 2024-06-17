@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../Navbar/Navbar";
-import {cartProduct}  from '../../Assets/cartProduct.js'
+import { cartProduct } from "../../Assets/cartProduct.js";
 import CartCard from "./CartCard";
+import { NavLink } from "react-router-dom";
+import './cart.css'
 
 export default function Cart() {
+
+  const [totalValue,setTotalValue] = useState(0)
   return (
     <React.Fragment>
       <Navbar></Navbar>
@@ -12,19 +16,24 @@ export default function Cart() {
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-10">
               <div className="d-flex justify-content-between align-items-center mb-4">
-                <h3 className="fw-normal mb-0 text-black">Shopping Cart</h3>
+                <h3 className="mb-0">Shopping Cart</h3>
               </div>
-              {cartProduct.map((product)=><CartCard product={product}/>)}
+              {cartProduct.map((product) => (
+                <CartCard product={product} />
+              ))}
               <div className="card">
                 <div className="card-body">
-                  <button
-                    type="button"
-                    data-mdb-button-init=""
-                    data-mdb-ripple-init=""
-                    className="btn btn-warning btn-block btn-lg"
-                  >
-                    Proceed to Pay
-                  </button>
+                  <h3>Total Amount : {totalValue}</h3>
+                  <NavLink to="/address">
+                    <button
+                      type="button"
+                      data-mdb-button-init=""
+                      data-mdb-ripple-init=""
+                      className="btn btn-warning btn-block btn-lg"
+                    >
+                      Proceed to Pay
+                    </button>
+                  </NavLink>
                 </div>
               </div>
             </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Navbar from "../Navbar/Navbar.js";
 import { API } from "../../backend.js";
 import BookCard from "../bookCard/BookCard.js";
@@ -6,22 +6,24 @@ import "./home.css";
 import { books } from "../../Assets/books.js";
 import { NavLink } from "react-router-dom";
 
-export default function Home() {
-    // const [books, setBooks] = useState([])
 
-    // useEffect(() => {
-    //   fetch(`${API}/`, {
-    //     method: "GET",
-    //     headers: {
-    //       "Accept": "application/json",
-    //     },
-    //   })
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //       console.log(data);
-    //       setBooks(data);
-    //     });
-    // }, []);
+export default function Home() {
+    const [books, setBooks] = useState([])
+
+    useEffect(() => {
+      // console.log(API)
+      fetch('http://localhost:8000/api/', {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          setBooks(data);
+        });
+    },[]);
 
   console.log(books);
   return (

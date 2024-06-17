@@ -7,6 +7,7 @@ import Signup from "./Components/Signup/Signup.js";
 import Policy from "./Components/Policy/policy.js";
 import Books from "./Components/Books/books.js";
 import Cart from "./Components/Cart/Cart.js";
+import Address from "./Components/Address/Address.js";
 
 export default function Router() {
   return (
@@ -19,6 +20,7 @@ export default function Router() {
         <Route path="/policy" element={<Policy />} />
         <Route path="/books" element={<Books/>} />
         <Route path="/cart" element={<Cart/>} />
+        <Route path="/address" element={<Address/>} />
       </R>
     </BrowserRouter>
   );
