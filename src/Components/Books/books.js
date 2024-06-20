@@ -12,10 +12,8 @@ export default function Books() {
         </div>
       <div className="container">
         <div className="bookCard">
-          {books.map((book, ind) => {
-            if (ind <= 15) {
+          {books.map((book) => {
               return <BookCard bookData={book} />;
-            }
           })}
         </div>
       </div>

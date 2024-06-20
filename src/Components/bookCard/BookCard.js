@@ -8,17 +8,17 @@ export default function BookCard({ bookData }) {
   const clickHandler = async (e)=>{
     console.log("Clicked");
 
-    // const response = await fetch(`${API}/addtocart`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Accept": "application/json",
-    //     "content-type": "application/json"
-    //   },
-    //   body:JSON.stringify(bookData)
-    // });
+    const response = await fetch(`http://localhost:8000/api/addtocart`, {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "content-type": "application/json"
+      },
+      body:JSON.stringify(bookData)
+    });
 
-    // const data = await response.json()
-    // console.log(data)
+    const data = await response.json()
+    console.log(data)
 
   }
 
@@ -30,12 +30,12 @@ export default function BookCard({ bookData }) {
         alt="Card image cap"
       />
       <div className="card-body">
-        <h5 className="card-title">{bookData.name}</h5>
+        <h5 className="card-title">{bookData.title}</h5>
         <h6 className="card-subtitle mb-2 text-muted">
-          Author :{bookData.authorName}
+          By {bookData.author}
         </h6>
-        <p className="card-text">{bookData.description}</p>
-        <NavLink to="/:${bookData.name}" className="card-link">
+        <p className="card-text">{bookData.description.slice(0,50) + "..."}</p>
+        <NavLink to="/bookDetail" className="card-link">
         <button type="button" class="btn btn-success">View Details</button>
         </NavLink>
         <NavLink to="/cart" className="card-link">

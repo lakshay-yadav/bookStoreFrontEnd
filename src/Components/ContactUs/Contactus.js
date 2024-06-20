@@ -7,7 +7,7 @@ export default function ContactUs() {
   const [info ,SetInfo] = useState({})
 
     const [query,setQuery] = useState({
-        name:"",
+        subject:"",
         email:"",
         description:""
     });
@@ -34,6 +34,13 @@ export default function ContactUs() {
         const data = await response.json()
         console.log(data)
         SetInfo(data)
+
+        if(data.status==="EMAILNOTFOUND"){
+          alert("Wrong Email id,Try again")
+        }
+        else if(data.status!="OK"){
+          alert("Some error Occured, Try again");
+        }
     }
 
     const performRedirect = ()=>{
@@ -77,11 +84,11 @@ export default function ContactUs() {
               help you.
             </p>
             <form >
-              <div className="input-box">
-                <input type="text" onChange={(e)=>{changeHandler(e,"name")}} placeholder="Enter your name" />
+            <div className="input-box">
+                <input type="email" placeholder="Enter your email" onChange={(e)=>{changeHandler(e,"email")}}/>
               </div>
               <div className="input-box">
-                <input type="email" placeholder="Enter your email" onChange={(e)=>{changeHandler(e,"email")}}/>
+                <input type="text" onChange={(e)=>{changeHandler(e,"subject")}} placeholder="Subject" />
               </div>
               <div className="input-box message-box">
                 <input type="text" placeholder="Enter description" onChange={(e)=>{changeHandler(e,"description")}}/>

@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import './navbar.css'
 
 export default function Navbar() {
+  const [isLogin,setIsLogin] = useState(localStorage.getItem("isLogin"))
+  console.log(isLogin)
+
+  const logOutHandler = (e)=>{
+    e.preventDefault()
+    alert("Logged Out")
+    setIsLogin(false)
+    console.log("Log out clicked")
+    localStorage.removeItem("user");
+    localStorage.removeItem("isLogin");
+  }
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark ">
       <div className="container-fluid">
@@ -34,7 +46,20 @@ export default function Navbar() {
             </li>
           </ul>
         </div>
-        <div className="my-2 my-lg-0">
+        {isLogin?<div className="my-2 my-lg-0">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/profile">
+              <button type="button" class="btn btn-success">Profile</button>
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/" onClick={logOutHandler}>
+              <button type="button" class="btn btn-success">Log Out</button>
+              </NavLink>
+            </li>
+          </ul>
+        </div>:<div className="my-2 my-lg-0">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <NavLink className="nav-link" to="/signup">
@@ -47,7 +72,7 @@ export default function Navbar() {
               </NavLink>
             </li>
           </ul>
-        </div>
+        </div>}
       </div>
     </nav>
   );

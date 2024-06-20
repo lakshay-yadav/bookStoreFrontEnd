@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink,Navigate } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
-import { Navigate } from "react-router-dom";
+import "./signin.css"
 
 export default function Signin() {
 
@@ -39,6 +39,7 @@ const submitHandler = async (e)=>{
   if(data.status==="OK"){
     setIsLogin(true);
     alert("Succesfully signed in")
+    localStorage.setItem("user",data.user);
     console.log("Successfully signed in")
     
   }
@@ -52,13 +53,14 @@ const submitHandler = async (e)=>{
 
 const performRedirect = ()=>{
   if(isLogin){
+    localStorage.setItem("isLogin",true)
     return <Navigate replace to='/'/>
   }
 }
 
   return (
     <React.Fragment>
-      <Navbar />
+      <Navbar/>
       <section className="vh-100" style={{ backgroundColor: "#9A616D" }}>
         <div className="container py-5 h-100">
           <div className="row d-flex justify-content-center align-items-center h-100">
@@ -143,6 +145,9 @@ const performRedirect = ()=>{
                             Register here
                           </NavLink>
                         </p>
+                        <NavLink to="/forgotpassword" className="small text-muted">
+                          <span>Forgot password</span>
+                        </NavLink>
                         <NavLink to="/policy" className="small text-muted">
                           Privacy policy
                         </NavLink>
