@@ -38,14 +38,16 @@ export default function ContactUs() {
         if(data.status==="EMAILNOTFOUND"){
           alert("Wrong Email id,Try again")
         }
-        else if(data.status!="OK"){
+        else if(data.status === "OK"){
+          alert("Query Submitted");
+        }
+        else{
           alert("Some error Occured, Try again");
         }
     }
 
     const performRedirect = ()=>{
       if(info.status==="OK"){
-        alert("Query Submitted")
         return <Navigate replace to='/'/>
       }
     }

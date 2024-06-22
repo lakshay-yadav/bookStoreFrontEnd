@@ -39,9 +39,12 @@ const submitHandler = async (e)=>{
   if(data.status==="OK"){
     setIsLogin(true);
     alert("Succesfully signed in")
-    localStorage.setItem("user",data.user);
+    console.log(data.user)
+    const user = data.user[0]
+    localStorage.setItem("user",user);
     console.log("Successfully signed in")
-    
+    const u = localStorage.getItem("user")
+    console.log(u)
   }
 
   else{
@@ -54,14 +57,14 @@ const submitHandler = async (e)=>{
 const performRedirect = ()=>{
   if(isLogin){
     localStorage.setItem("isLogin",true)
-    return <Navigate replace to='/'/>
+    return <Navigate replace to='/profile'/>
   }
 }
 
   return (
     <React.Fragment>
       <Navbar/>
-      <section className="vh-100" style={{ backgroundColor: "#9A616D" }}>
+      <section className="vh-100" style={{ backgroundColor: "#f2f6fc" }}>
         <div className="container py-5 h-100">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col col-xl-10">

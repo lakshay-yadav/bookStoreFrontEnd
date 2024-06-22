@@ -11,7 +11,7 @@ export default function Cart() {
   return (
     <React.Fragment>
       <Navbar></Navbar>
-      <section className="h-100" style={{ backgroundColor: "#9A616D" }}>
+      <section className="h-100" style={{ backgroundColor: "#f2f6fc" }}>
         <div className="container h-100 py-5">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-10">

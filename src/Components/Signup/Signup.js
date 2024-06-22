@@ -12,6 +12,7 @@ export default function Signup() {
 
   const [userData,setUserData] = useState({
     name:"",
+    lastName:"",
     email:"",
     password:"",
     confirmPassword:""
@@ -79,7 +80,7 @@ export default function Signup() {
     <React.Fragment>
       <Navbar />
       <div
-      style={{ backgroundColor: "#9A616D" }}
+      style={{ backgroundColor: "#f2f6fc" }}
         className="vh-100 bg-image"
       >
         <div className="mask d-flex align-items-center h-100 gradient-custom-3">
@@ -92,25 +93,36 @@ export default function Signup() {
                       Create an account
                     </h2>
                     <form >
-                      <div data-mdb-input-init="" className="form-outline mb-4">
+                        <div data-mdb-input-init="" className="form-outline mb-4">
                         <input
                           onChange={(e)=>{ changeHandler(e,"name");}}
                           type="text"
-                          id="form3Example1cg"
+                          id="name"
                           className="form-control form-control-lg"
                         />
-                        <label className="form-label" htmlFor="form3Example1cg">
-                          Your Name
+                        <label className="form-label" htmlFor="name">
+                          First Name
+                        </label>
+                      </div>
+                      <div data-mdb-input-init="" className="form-outline mb-4">
+                        <input
+                          onChange={(e)=>{ changeHandler(e,"lastName");}}
+                          type="text"
+                          id="lastName"
+                          className="form-control form-control-lg"
+                        />
+                        <label className="form-label" htmlFor="lastName">
+                          Last Name
                         </label>
                       </div>
                       <div data-mdb-input-init="" className="form-outline mb-4">
                         <input
                           onChange={(e)=>{ changeHandler(e,"email");}}
                           type="email"
-                          id="form3Example3cg"
+                          id="email"
                           className="form-control form-control-lg"
                         />
-                        <label className="form-label" htmlFor="form3Example3cg">
+                        <label className="form-label" htmlFor="email">
                           Your Email
                         </label>
                       </div>
@@ -118,10 +130,10 @@ export default function Signup() {
                         <input
                           onChange={(e)=>{ changeHandler(e,"password");}}
                           type="password"
-                          id="form3Example4cg"
+                          id="password"
                           className="form-control form-control-lg"
                         />
-                        <label className="form-label" htmlFor="form3Example4cg">
+                        <label className="form-label" htmlFor="password">
                           Password
                         </label>
                       </div>
@@ -129,12 +141,12 @@ export default function Signup() {
                         <input
                         onChange={(e)=>{ changeHandler(e,"confirmPassword");}}
                           type="password"
-                          id="form3Example4cdg"
+                          id="confirmPassword"
                           className="form-control form-control-lg"
                         />
                         <label
                           className="form-label"
-                          htmlFor="form3Example4cdg"
+                          htmlFor="confirmPassword"
                         >
                           Repeat your password
                         </label>
