@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Navigate } from "react-router-dom";
 import './navbar.css'
 
 export default function Navbar() {
@@ -13,10 +13,14 @@ export default function Navbar() {
     console.log("Log out clicked")
     localStorage.removeItem("user");
     localStorage.removeItem("isLogin");
+
+    return <Navigate replace to='/'/>
   }
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark ">
+    
+    <React.Fragment>
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark ">
       <div className="container-fluid">
         <NavLink to="/" className="navbar-brand">
           Book Store
@@ -48,6 +52,11 @@ export default function Navbar() {
         </div>
         {isLogin?<div className="my-2 my-lg-0">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+          <li className="nav-item">
+              <NavLink className="nav-link" to="/cart">
+              <button type="button" class="btn btn-success">Cart</button>
+              </NavLink>
+            </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="/profile">
               <button type="button" class="btn btn-success">Profile</button>
@@ -75,5 +84,6 @@ export default function Navbar() {
         </div>}
       </div>
     </nav>
+    </React.Fragment>
   );
 }

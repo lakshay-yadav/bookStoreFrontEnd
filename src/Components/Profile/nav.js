@@ -6,7 +6,7 @@ export default function Nav (){
         <nav className="nav nav-borders">
           <NavLink
             className="nav-link active ms-0"
-            to=""
+            to="/profile"
           >
             Profile
           </NavLink>
@@ -18,19 +18,19 @@ export default function Nav (){
           </NavLink>
           <NavLink
             className="nav-link"
-            to=""
+            to="/profile/order-history"
           >
             Order
           </NavLink>
           <NavLink
             className="nav-link"
-            to="#"
+            to="/profile/wishlist"
           >
             Wishlist
           </NavLink>
           <NavLink
             className="nav-link"
-            to="#"
+            to="/profile/queries"
           >
             Queries
           </NavLink>

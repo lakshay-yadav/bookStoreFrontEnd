@@ -39,12 +39,8 @@ const submitHandler = async (e)=>{
   if(data.status==="OK"){
     setIsLogin(true);
     alert("Succesfully signed in")
-    console.log(data.user)
-    const user = data.user[0]
-    localStorage.setItem("user",user);
+    localStorage.setItem("user",data.user[0].email);
     console.log("Successfully signed in")
-    const u = localStorage.getItem("user")
-    console.log(u)
   }
 
   else{

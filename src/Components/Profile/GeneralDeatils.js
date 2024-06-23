@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
 
-export default function GeneralDetails(){
-    const user = localStorage.getItem("user")
-    console.log(user)
+export default function GeneralDetails({user}){
+    const userEmail = localStorage.getItem("user")
+    console.log(userEmail)
 
     const [newDetails,setNewDetails] = useState({
         name:user.name,
         lastName :user.lastName,
         gender:user.gender,
         phoneNumber:user.phoneNumber,
-        email:user.email
+        email:userEmail
     });
 
     const changeHandler = (e,name)=>{
@@ -70,39 +70,38 @@ export default function GeneralDetails(){
                   </div>
                   <div className="row gx-3 mb-3">
                     <div className="col-md-6">
-                      <label className="small mb-1" htmlFor="inputPhone">
+                      <label className="small mb-1" htmlFor="phoneNumber">
                         Phone number
                       </label>
                       <input
                         onChange={(e)=>{changeHandler(e,"phoneNumber")}}
                         className="form-control"
-                        id="inputPhone"
+                        id="phoneNumber"
                         type="tel"
                         placeholder="Enter your phone number"
                         defaultValue={user.phoneNumber}
                       />
                     </div>
                     <div className="col-md-6">
-                      <label className="small mb-1" htmlFor="inputBirthday">
+                      <label className="small mb-1" htmlFor="gender">
                         Gender
                       </label>
                       <input
                         onChange={(e)=>{changeHandler(e,"gender")}}
                         className="form-control"
-                        id="inputBirthday"
+                        id="gender"
                         type="text"
-                        name="birthday"
                         placeholder="Gender"
-                        defaultValue={user.gender || " "}
+                        defaultValue={user.gender}
                       />
                     </div>
                   <div className="mb-3">
-                    <label className="small mb-1" htmlFor="inputEmailAddress">
+                    <label className="small mb-1" htmlFor="email">
                       Email address
                     </label>
                     <input
                       className="form-control"
-                      id="inputEmailAddress"
+                      id="email"
                       type="email"
                       defaultValue={user.email}
                     />

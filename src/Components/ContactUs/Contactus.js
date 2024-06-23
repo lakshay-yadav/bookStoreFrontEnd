@@ -56,7 +56,7 @@ export default function ContactUs() {
   return (
     <React.Fragment>
       <Navbar/>
-      <div className="body" style={{ backgroundColor: "#9A616D" }}>
+      <div className="body" style={{ backgroundColor: "#f2f6fc" }}>
       <div className="container">
         <div className="content">
           <div className="left-side">

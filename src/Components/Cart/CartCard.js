@@ -1,9 +1,38 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { NavLink, Navigate } from "react-router-dom";
 
 export default function CartCard({ product }) {
+  const userEmail = localStorage.getItem("user")
+  const [remove,setRemove] = useState(false)
+
+  const removeFromCart = async (e)=>{
+    e.preventDefault()
+    console.log("inside remove from cart")
+    const res = await fetch('http://localhost:8000/api/cart/removefromcart',{
+      method:"POST",
+      headers:{
+        Accept:"application/json",
+        "content-type":"application/json"
+      },
+      body: JSON.stringify({email:userEmail,product:product})
+    })
+
+    const data = await res.json()
+    console.log(data)
+
+    if(data.status==="OK"){
+      setRemove(true)
+    }
+  }
+
+  const redirect = ()=>{
+    if(remove)
+    return <Navigate replace to="/cart/"/>
+  }
+
   return (
-    <div className="card rounded-3 mb-4">
+    <React.Fragment>
+      <div className="card rounded-3 mb-4">
       <div className="card-body p-4">
         <div className="row d-flex justify-content-between align-items-center">
           <div className="col-md-2 col-lg-2 col-xl-2">
@@ -14,9 +43,9 @@ export default function CartCard({ product }) {
             />
           </div>
           <div className="col-md-3 col-lg-3 col-xl-3">
-            <p className="lead fw-normal mb-2">{product.name}</p>
+            <p className="lead fw-normal mb-2">{product.title}</p>
             <p>
-              <span className="text-muted">{product.authorName} </span>
+              <span className="text-muted">By <b>{product.author}</b> </span>
             </p>
           </div>
           <div className="col-md-3 col-lg-3 col-xl-2 d-flex">
@@ -32,7 +61,7 @@ export default function CartCard({ product }) {
               id="form1"
               min={0}
               name="quantity"
-              defaultValue={product.quantity}
+              defaultValue="1"
               type="number"
               className="form-control form-control-sm"
             />
@@ -49,12 +78,14 @@ export default function CartCard({ product }) {
             <h5 className="mb-0">Rs.{product.price}</h5>
           </div>
           <div className="col-md-1 col-lg-1 col-xl-1 text-end">
-            <button className="btn text-danger px-2" onclick={() => {}}>
+            <button className="btn text-danger px-2" onClick={removeFromCart}>
               <i className="fas fa-trash fa-lg" />
             </button>
           </div>
         </div>
       </div>
     </div>
+    {redirect()}
+    </React.Fragment>
   );
 }

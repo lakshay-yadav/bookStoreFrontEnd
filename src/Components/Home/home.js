@@ -3,14 +3,12 @@ import Navbar from "../Navbar/Navbar.js";
 import { API } from "../../backend.js";
 import BookCard from "../bookCard/BookCard.js";
 import "./home.css";
-import { books } from "../../Assets/books.js";
 import { NavLink } from "react-router-dom";
 
 export default function Home() {
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
-    // console.log(API)
     fetch("http://localhost:8000/api/", {
       method: "GET",
       headers: {
@@ -29,7 +27,6 @@ export default function Home() {
     <React.Fragment>
       <Navbar></Navbar>
       <div>
-        
         <div className="container">
         <div className="header">
           <h2>Popular Books</h2>
