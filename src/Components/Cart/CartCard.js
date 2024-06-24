@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { NavLink, Navigate } from "react-router-dom";
+import { Link, NavLink, Navigate } from "react-router-dom";
 
 export default function CartCard({ product }) {
   const userEmail = localStorage.getItem("user")
-  const [remove,setRemove] = useState(false)
 
   const removeFromCart = async (e)=>{
-    e.preventDefault()
+    // e.preventDefault()
     console.log("inside remove from cart")
     const res = await fetch('http://localhost:8000/api/cart/removefromcart',{
       method:"POST",
@@ -20,15 +19,8 @@ export default function CartCard({ product }) {
     const data = await res.json()
     console.log(data)
 
-    if(data.status==="OK"){
-      setRemove(true)
-    }
   }
 
-  const redirect = ()=>{
-    if(remove)
-    return <Navigate replace to="/cart/"/>
-  }
 
   return (
     <React.Fragment>
@@ -78,14 +70,13 @@ export default function CartCard({ product }) {
             <h5 className="mb-0">Rs.{product.price}</h5>
           </div>
           <div className="col-md-1 col-lg-1 col-xl-1 text-end">
-            <button className="btn text-danger px-2" onClick={removeFromCart}>
+            <Link to="/cart" className="btn text-danger px-2" onClick={removeFromCart}>
               <i className="fas fa-trash fa-lg" />
-            </button>
+            </Link>
           </div>
         </div>
       </div>
     </div>
-    {redirect()}
     </React.Fragment>
   );
 }

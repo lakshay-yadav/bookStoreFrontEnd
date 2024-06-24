@@ -15,6 +15,7 @@ import ChangePassword from "./Components/Profile/ChangePassword.js";
 import Queries from "./Components/Profile/ProfileComponents/Queries.js";
 import Wishlist from "./Components/Profile/ProfileComponents/Wishlist.js";
 import OrderHistory from "./Components/Profile/ProfileComponents/OrderHistory.js";
+import Error from "./Components/Error/Error.js";
 
 
 export default function Router() {
@@ -26,7 +27,7 @@ export default function Router() {
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/policy" element={<Policy />} />
-        <Route path="/books" element={<Books/>} />
+        <Route path="/books/:genre" element={<Books/>} />
         <Route path="/cart" element={<Cart/>} />
         <Route path="/address" element={<Address/>} />
         <Route path="/profile/change-password" element={<ChangePassword/>}/>
@@ -34,9 +35,9 @@ export default function Router() {
         <Route path="/profile/wishlist" element={<Wishlist/>}/>
         <Route path="/profile/order-history" element={<OrderHistory/>}/>
         <Route path="/profile" element={<Profile/>} />
-        <Route path="/bookDetail" element={<BookDetail/>} />
+        <Route path="book/:id" element={<BookDetail/>} />
         <Route path="/forgotpassword" element={<ForgotPassword/>} />
-        
+        <Route path="/*" element={<Error/>}></Route>
       </R>
     </BrowserRouter>
   );

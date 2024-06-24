@@ -32,11 +32,11 @@ export default function Home() {
           <h2>Popular Books</h2>
         </div>
           <div className="viewAll">
-            <NavLink to="/books">View All</NavLink>
+            <NavLink to={`/books/${books.genre}`}>View All</NavLink>
           </div>
           <div className="bookCard">
             {books.map((book, ind) => {
-              if (ind <= 15) {
+              if (ind <= 3) {
                 return <BookCard bookData={book} />;
               }
             })}
