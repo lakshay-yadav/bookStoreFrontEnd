@@ -1,35 +1,39 @@
-import React, { useEffect,useState } from "react";
-import "./BookInfoPage.css"
+import React, { useEffect, useState } from "react";
+import "./BookInfoPage.css";
 import { Link } from "react-router-dom";
+import SimilarBooks from "../similarBooks";
 
-export default function BookInfoPage({bookData}) {
-    const [similarBooks,setSimilarBooks] = useState([])
-    const userEmail = localStorage.getItem("user");
+export default function BookInfoPage({ bookData }) {
+  const [similarBooks, setSimilarBooks] = useState([]);
+  const userEmail = localStorage.getItem("user");
 
-    useEffect(()=>{
-        fetch(`http://localhost:8000/api/books/books/${bookData.genre[0]}`)
-        .then(res=>res.json())
-        .then((data)=>{setSimilarBooks(data)})
-    },[])
+  useEffect(() => {
+    fetch(`http://localhost:8000/api/books/books/${bookData.genre[0]}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setSimilarBooks(data.books);
+      });
+  }, []);
 
-    const cartHandler = async (e) => {
-        // e.preventDefault()
-        console.log("Clicked");
-    
-        const response = await fetch(`http://localhost:8000/api/cart/addtocart`, {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "content-type": "application/json",
-          },
-          body: JSON.stringify({ email: userEmail, book: bookData }),
-        });
-    
-        const data = await response.json();
-        console.log(data);
-      };
+  const cartHandler = async (e) => {
+    // e.preventDefault()
+    console.log("Clicked");
 
-    console.log(bookData);
+    const response = await fetch(`http://localhost:8000/api/cart/addtocart`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ email: userEmail, book: bookData }),
+    });
+
+    const data = await response.json();
+    // console.log(data);
+  };
+
+  console.log("Similar books",similarBooks)
+  // console.log(bookData);
 
   return (
     <>
@@ -37,7 +41,10 @@ export default function BookInfoPage({bookData}) {
         <div className="container">
           <div className="row gx-5">
             <aside className="col-lg-6">
-              <div className=" d-flex justify-content-center align-items-center border " style={{height:"100%"}}>
+              <div
+                className=" d-flex justify-content-center align-items-center border "
+                style={{ height: "100%" }}
+              >
                 <Link
                   data-fslightbox="mygalley"
                   className="rounded-4"
@@ -59,16 +66,14 @@ export default function BookInfoPage({bookData}) {
             </aside>
             <main className="col-lg-6">
               <div className="ps-lg-3">
-                <h4 className="title text-dark">
-                {bookData.title}
-                </h4>
+                <h4 className="title text-dark">{bookData.title}</h4>
                 <div className="d-flex flex-row my-3">
                   <div className="text-warning mb-1 me-2">
                     <i className="fa fa-star" />
                     <i className="fa fa-star" />
                     <i className="fa fa-star" />
                     <i className="fa fa-star" />
-                    <i className="fas fa-star-half-alt"/>
+                    <i className="fas fa-star-half-alt" />
                   </div>
                   <span className="text-muted">
                     <i className="fas fa-shopping-basket fa-sm mx-1" />
@@ -79,9 +84,7 @@ export default function BookInfoPage({bookData}) {
                 <div className="mb-3">
                   <span className="h5">Rs. {bookData.price}</span>
                 </div>
-                <p>
-                  {bookData.description}
-                </p>
+                <p>{bookData.description}</p>
                 <div className="row">
                   <dt className="col-3">Book</dt>
                   <dd className="col-9">{bookData.title}</dd>
@@ -90,7 +93,11 @@ export default function BookInfoPage({bookData}) {
                   <dt className="col-3">Publication year</dt>
                   <dd className="col-9">{bookData.publication_year}</dd>
                   <dt className="col-3">Genre</dt>
-                  <dd className="col-9">{bookData.genre.map((g)=><span>{g}</span>)}</dd>
+                  <dd className="col-9">
+                    {bookData.genre.map((g) => (
+                      <span>{g}</span>
+                    ))}
+                  </dd>
                 </div>
                 <hr />
                 <div className="row mb-4">
@@ -127,7 +134,11 @@ export default function BookInfoPage({bookData}) {
                   {" "}
                   Buy now{" "}
                 </Link>
-                <Link to="/cart" className="btn btn-primary mx-2 shadow-0" onClick={cartHandler}>
+                <Link
+                  to="/cart"
+                  className="btn btn-primary mx-2 shadow-0"
+                  onClick={cartHandler}
+                >
                   {" "}
                   <i className="me-1 fa fa-shopping-basket" /> Add to cart{" "}
                 </Link>
@@ -141,81 +152,15 @@ export default function BookInfoPage({bookData}) {
               </div>
             </main>
           </div>
-          {/* <div className="row gx-4 mt-5">
-            <div className="col-lg-12 mt-5">
-              <div className="px-0 shadow-0">
-                <div className="">
-                  <div className="card-body">
-                    <h5 className="card-title mb-3">Similar items</h5>
-                    <div className="d-flex mb-3">
-                      <a href="#" className="me-3">
-                        <img
-                          src="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/8.webp"
-                          style={{ minWidth: 96, height: 96 }}
-                          className="img-md img-thumbnail"
-                        />
-                      </a>
-                      <div className="info">
-                        <a href="#" className="nav-link mb-1">
-                          Rucksack Backpack Large <br />
-                          Line Mounts
-                        </a>
-                        <strong className="text-dark"> $38.90</strong>
-                      </div>
-                    </div>
-                    <div className="d-flex mb-3">
-                      <a href="#" className="me-3">
-                        <img
-                          src="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/9.webp"
-                          style={{ minWidth: 96, height: 96 }}
-                          className="img-md img-thumbnail"
-                        />
-                      </a>
-                      <div className="info">
-                        <a href="#" className="nav-link mb-1">
-                          Summer New Men's Denim <br />
-                          Jeans Shorts
-                        </a>
-                        <strong className="text-dark"> $29.50</strong>
-                      </div>
-                    </div>
-                    <div className="d-flex mb-3">
-                      <a href="#" className="me-3">
-                        <img
-                          src="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/10.webp"
-                          style={{ minWidth: 96, height: 96 }}
-                          className="img-md img-thumbnail"
-                        />
-                      </a>
-                      <div className="info">
-                        <a href="#" className="nav-link mb-1">
-                          {" "}
-                          T-shirts with multiple colors, for men and lady{" "}
-                        </a>
-                        <strong className="text-dark"> $120.00</strong>
-                      </div>
-                    </div>
-                    <div className="d-flex">
-                      <a href="#" className="me-3">
-                        <img
-                          src="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/11.webp"
-                          style={{ minWidth: 96, height: 96 }}
-                          className="img-md img-thumbnail"
-                        />
-                      </a>
-                      <div className="info">
-                        <a href="#" className="nav-link mb-1">
-                          {" "}
-                          Blazer Suit Dress Jacket for Men, Blue color{" "}
-                        </a>
-                        <strong className="text-dark"> $339.90</strong>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
+          <br/><br/>
+          <hr/>
+          <h2 className="">Similar Books</h2>
+          <div className="row">{similarBooks.map((book,ind)=>{
+            if(book.title !== bookData.title && ind<4){
+              return <div className="col-xl-3"><SimilarBooks book={book}/></div>
+            }
+          })}
+          </div>
         </div>
       </section>
     </>

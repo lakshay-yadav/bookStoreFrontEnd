@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../Navbar/Navbar";
 import { useParams } from "react-router-dom";
-import BookCard from "../bookCard/BookCard";
 import BookInfoPage from "./BookInfoPage/BookInfoPage";
 
 export default function BookDetail() {

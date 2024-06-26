@@ -22,9 +22,9 @@ export default function Books() {
         <div className="header">
           <h2>All Books</h2>
         </div>
-          <div className="bookCard">
+          <div className="bookCard row">
             {books.map((book) => {
-                return <BookCard bookData={book} />;
+                return <div className="col-xl-3 col-md-6 col-sm-12 mb-3"><BookCard bookData={book} /></div>;
             })}
           </div>
         </div>
